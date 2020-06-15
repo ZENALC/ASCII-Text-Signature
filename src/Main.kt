@@ -6,12 +6,13 @@ import java.util.*
 import kotlin.collections.HashMap
  
 fun getCharacters(type: String): HashMap<Char, Array<String>> {
-    var lines: Any = ""
-    var characterLines = 0
-    if (type == "roman") {
+    // Function to retrieve characters from the respective text files.
+    val lines: Any
+    val characterLines: Int
+    if (type == "roman") { // Retrieve roman-font text
         lines = File(Paths.get("roman.txt").toString()).readLines()
         characterLines = 11
-    } else {
+    } else { // Retrieve medium-font text
         lines = File(Paths.get("medium.txt").toString()).readLines()
         characterLines = 4
     }
@@ -28,6 +29,7 @@ fun getCharacters(type: String): HashMap<Char, Array<String>> {
 }
  
 fun getTextArray(name: String, type: String): Array<String> {
+    // Function to retrieve an array of the signature
     val characters: HashMap<Char, Array<String>>
     val arr: Array<String>
     val blankSpace: String
@@ -58,6 +60,7 @@ fun getTextArray(name: String, type: String): Array<String> {
 }
  
 fun printArt(name: String, tag: String) {
+    // Main function that prints the artwork
     val romanArray = getTextArray(name, "roman")
     val romanArrayLength = romanArray[0].length
     val mediumArray = getTextArray(tag, "medium")
@@ -65,18 +68,18 @@ fun printArt(name: String, tag: String) {
     val length = maxOf(romanArrayLength, mediumArrayLength) + 6
     val spaces = length - mediumArrayLength
     val leftSpace = (length - romanArrayLength) / 2 - 1
-    var rightSpace = leftSpace
+    var rightSpace = leftSpace - 1
     if ((length - romanArrayLength) % 2 != 0) {
         rightSpace += 1
     }
-    println("8".repeat(length + 2))
-    for (x in 0..9) {println("88${" ".repeat(leftSpace)}${romanArray[x]}${" ".repeat(rightSpace)}88")}
+    println("8".repeat(length + 1))
+    for (index in 0..9) {println("88${" ".repeat(leftSpace)}${romanArray[index]}${" ".repeat(rightSpace)}88")}
     if (spaces % 2 == 1) {
-        for (x in 0..2) {println("88${" ".repeat(spaces / 2 - 2)} ${mediumArray[x]} ${" ".repeat(spaces / 2 - 1)}88")}
+        for (index in 0..2) {println("88${" ".repeat(spaces / 2 - 2)} ${mediumArray[index]} ${" ".repeat(spaces / 2 - 2)}88")}
     } else {
-        for (x in 0..2) {println("88${" ".repeat(spaces / 2 - 2)} ${mediumArray[x]} ${" ".repeat(spaces / 2 - 2)}88")}
+        for (index in 0..2) {println("88${" ".repeat(spaces / 2 - 2)} ${mediumArray[index]} ${" ".repeat(spaces / 2 - 3)}88")}
     }
-    println("8".repeat(length + 2))
+    println("8".repeat(length + 1))
 }
  
 fun main() {
